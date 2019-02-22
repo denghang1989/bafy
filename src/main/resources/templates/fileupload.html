@@ -1,0 +1,168 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html:charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/themes/default/easyui.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/themes/icon.css}" type="text/css">
+    <script th:src="@{/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/jquery.easyui.min.js}" type="text/javascript"></script>
+    <script th:src="@{/locale/easyui-lang-zh_CN.js}" type="text/javascript"></script>
+    <title>Document</title>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin: 10px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        form a {
+            margin-left: 10px;
+        }
+
+        .listView {
+            list-style: none;
+        }
+
+        .listView li {
+            display: inline-block;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <form id="form" method="post" enctype="multipart/form-data">
+        <input id="fileBox" class="easyui-filebox" style="width:300px" name="file"
+               data-options="multiple:true"
+               accept="image/*">
+        <a class="easyui-linkbutton" href="#" data-options="iconCls:'icon-save'" id="button">提交</a>
+    </form>
+
+    <div class="imageList">
+        <ul id="listView" class="listView">
+
+        </ul>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    var eposideId = [[${eposideId}]]
+</script>
+
+<script type="text/javascript">
+    $(function () {
+
+        var form = $("#form");
+        var fileBox = $("#fileBox");
+        var button = $("#button");
+        var listView = $("#listView");
+        var currentData = null;
+
+        var fileupload = {
+            init: function () {
+                form.form({
+                    url: "/upload/file",
+                    onSubmit: function (param) {
+                        param.eposideId = eposideId;
+                        fileupload.view.buttonDisable();
+                        fileupload.view.showProgress();
+                        return true;
+                    },
+                    success: function (data) {
+                        fileupload.view.hideProgress();
+                        fileupload.view.buttonEnable();
+                        fileupload.controller.getImageListByEposideId()
+                    },
+                    onLoadError: function () {
+                        fileupload.view.buttonEnable();
+                        fileupload.view.hideProgress();
+                    }
+                });
+
+                fileBox.filebox({
+                    buttonText: '选择文件',
+                    buttonAlign: 'right'
+                });
+            }
+        };
+
+        fileupload.view = {
+            showProgress: function () {
+                $.messager.progress();
+            },
+            hideProgress: function () {
+                $.messager.progress('close');
+            },
+            buttonDisable: function () {
+                button.linkbutton("disable");
+            },
+            buttonEnable: function () {
+                button.linkbutton("enable");
+            },
+            showImageList: function (imageList) {
+                var html = "";
+                for (var i = 0; i < imageList.length; i++) {
+                    var imageItem = imageList[i];
+                    var src = "/upload/image?Id=" + imageItem.id;
+                    var tempHtml = template(i, src);
+                    html = html + tempHtml;
+                }
+                listView.append(html);
+            }
+        };
+
+        fileupload.controller = {
+            getImageListByEposideId: function () {
+                $.getJSON("/upload/imageList", {eposideId: eposideId}, function (data) {
+                    currentData = data;
+                    fileupload.view.showImageList(data);
+                })
+            }
+        };
+
+        button.on("click", function () {
+            form.submit();
+        });
+
+        listView.on("click", "li", function () {
+            var index = $(this).data("index");
+            var returnValue = {"ImageType": currentData[index].imageType, "ImageId": currentData[index].id};
+            if (returnValue)
+            {
+                for (var i = 0; i < window.parent.frames.length; i++) {
+                    alert(window.parent.frames[0].name)
+                }
+                window.parent.parent.frames["framRecord"].insertIMG(returnValues);
+                window.parent.parent.frames["framRecord"].changeIMGfreq(returnValues);
+            }
+        });
+
+        fileupload.init();
+        fileupload.controller.getImageListByEposideId();
+    });
+
+    function template(index, src) {
+        var tmpHtml = '<li data-index="' + index + '">' +
+            '<a href="javascript:void(0)">' +
+            '<img src="' + src + '">' +
+            '</a>' +
+            '</li>';
+        return tmpHtml;
+    }
+</script>
+</body>
+</html>

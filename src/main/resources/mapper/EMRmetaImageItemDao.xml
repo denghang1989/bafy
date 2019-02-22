@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dhcc.bafy.dao.EMRmetaImageItemDao">
+
+    <resultMap id="image" type="cn.com.dhcc.bafy.entity.EposideImage">
+        <id column="ID" property="id"/>
+        <result column="EposideId" property="eposideId"/>
+        <result column="ImageCode" property="imageCode"/>
+    </resultMap>
+
+    <insert id="insert">
+      INSERT INTO web_DHCTools.EposideImage (EposideId, ImageCode) VALUES (#{EposideId}, #{ImageCode})
+    </insert>
+    <select id="findImageListByEposideId" resultType="cn.com.dhcc.bafy.entity.EMRmetaImageItem">
+        SELECT ID, CategoryID, Code, Description, ImageType, IsPublish, Name, Sequence FROM EMRmeta_Image.Item WHERE Code IN (SELECT ImageCode FROM web_DHCTools.EposideImage WHERE EposideId=#{EposideId})
+    </select>
+    <select id="findImageById" resultType="cn.com.dhcc.bafy.entity.EMRmetaImageItem">
+        SELECT ID, CategoryID, Code, Description, ImageData, ImageType, IsPublish, Name, Sequence FROM EMRmeta_Image.Item WHERE ID = #{ID}
+    </select>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dhcc.bafy.dao.QualityEntityTestDao">
+
+    <resultMap id="baseMap" type="cn.com.dhcc.bafy.entity.Test">
+        <id column="ID" property="id" />
+        <result column="Name" property="name" />
+        <result column="Age" property="age"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.com.dhcc.bafy.entity.Test">
+        INSERT INTO Quality_Entity.Test (Age, Name) VALUES (#{name},#{age})
+    </insert>
+</mapper>
