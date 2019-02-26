@@ -9,10 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>anonymous complex type的 Java 类。
- * 
- * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -38,8 +35,7 @@ public class CheckImageItemPublishedResponse {
     protected String checkImageItemPublishedResult;
 
     /**
-     * 获取checkImageItemPublishedResult属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
@@ -50,8 +46,7 @@ public class CheckImageItemPublishedResponse {
     }
 
     /**
-     * 设置checkImageItemPublishedResult属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }

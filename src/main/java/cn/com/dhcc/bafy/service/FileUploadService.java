@@ -52,7 +52,7 @@ public class FileUploadService {
             File disFile = new File(mFileUpload + File.separator + filename);
             multipartFile.transferTo(disFile);
             //图像压缩
-            Thumbnails.of(disFile).scale(0.1).toFile(disFile);
+            Thumbnails.of(disFile).size(192,108).toFile(disFile);
             //md5
             String code = DigestUtils.md5DigestAsHex(new FileInputStream(disFile));
             //base64
@@ -66,6 +66,7 @@ public class FileUploadService {
             item.setImageData(encode);
             item.setIsPublish("1");
             item.setCategoryID("2");
+            FileUtils.deleteQuietly(disFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
