@@ -52,7 +52,11 @@ public class FileUploadService {
             File disFile = new File(mFileUpload + File.separator + filename);
             multipartFile.transferTo(disFile);
             //图像压缩
-            Thumbnails.of(disFile).size(192,108).toFile(disFile);
+            if ((count==2)||(count==4)) {
+                Thumbnails.of(disFile).size(288,162).toFile(disFile);
+            } else if (count >= 5) {
+                Thumbnails.of(disFile).size(192,108).toFile(disFile);
+            }
             //md5
             String code = DigestUtils.md5DigestAsHex(new FileInputStream(disFile));
             //base64
