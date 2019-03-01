@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = "cn.com.dhcc.bafy.dao")
-public class BafyApplication {
+public class BafyApplication{
 
     public static void main(String[] args) {
         SpringApplication.run(BafyApplication.class, args);
