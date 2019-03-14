@@ -54,7 +54,7 @@ public class FileUploadService {
             //图像压缩
             if ((count==2)||(count==4)) {
                 Thumbnails.of(disFile).size(288,162).toFile(disFile);
-            } else if (count >= 5) {
+            } else {
                 Thumbnails.of(disFile).size(192,108).toFile(disFile);
             }
             //md5
@@ -68,7 +68,7 @@ public class FileUploadService {
             item.setDescription(filename);
             item.setCode(code);
             item.setImageData(encode);
-            item.setIsPublish("1");
+            item.setIsPublish("0");
             item.setCategoryID("2");
             FileUtils.deleteQuietly(disFile);
         } catch (Exception e) {

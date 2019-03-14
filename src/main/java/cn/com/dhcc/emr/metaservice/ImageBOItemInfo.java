@@ -9,7 +9,7 @@ import javax.xml.ws.WebServiceFeature;
 import javax.xml.ws.Service;
 
 @WebServiceClient(name = "ImageBOItemInfo",
-                  wsdlLocation = "http://192.168.199.49:57772/dthealth/web/EMRservice.Image.BOItem.cls?wsdl",
+                  wsdlLocation = "http://192.168.199.22:57772/dthealth/web/EMRservice.Image.BOItem.cls?wsdl",
                   targetNamespace = "http://www.dhcc.com.cn/emr/metaservice")
 public class ImageBOItemInfo extends Service {
 
@@ -20,11 +20,11 @@ public class ImageBOItemInfo extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("http://192.168.199.49:57772/dthealth/web/EMRservice.Image.BOItem.cls?wsdl");
+            url = new URL("http://192.168.199.22:57772/dthealth/web/EMRservice.Image.BOItem.cls?wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(ImageBOItemInfo.class.getName())
                 .log(java.util.logging.Level.INFO,
-                     "Can not initialize the default wsdl from {0}", "http://192.168.199.49:57772/dthealth/web/EMRservice.Image.BOItem.cls?wsdl");
+                     "Can not initialize the default wsdl from {0}", "http://192.168.199.22:57772/dthealth/web/EMRservice.Image.BOItem.cls?wsdl");
         }
         WSDL_LOCATION = url;
     }
