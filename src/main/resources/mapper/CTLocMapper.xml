@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.dhcc.bafy.dao.CTLocMapper">
+
+    <resultMap id="Loc" type="cn.com.dhcc.bafy.entity.Loc">
+        <id column="CTLOC_RowID" property="id"/>
+        <result column="CTLOC_Desc" property="name"/>
+        <result column="CTLOC_Type" property="type"/>
+    </resultMap>
+
+    <select id="getAllCtLoc" resultMap="Loc" parameterType="string">
+        SELECT CTLOC_RowID, CTLOC_Desc, CTLOC_Type FROM CT_Loc where CTLOC_Type = #{type}
+    </select>
+
+    <delete id="delete" parameterType="string">
+        delete from CT_Loc where ID=#{id}
+    </delete>
+
+</mapper>

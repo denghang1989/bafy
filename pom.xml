@@ -66,6 +66,14 @@
             <version>3.2.8</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.intersys</groupId>
             <artifactId>cacheDb</artifactId>
@@ -81,8 +89,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
+
     </build>
 
 </project>

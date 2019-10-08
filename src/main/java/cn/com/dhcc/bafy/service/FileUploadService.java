@@ -32,7 +32,7 @@ public class FileUploadService {
 
     @PostConstruct
     public void init() {
-        mFileUpload = new File("E:\\FileUpload");
+        mFileUpload = new File("C:\\FileUpload");
         try {
             if (mFileUpload.exists()) {
                 FileUtils.cleanDirectory(mFileUpload);
@@ -48,6 +48,9 @@ public class FileUploadService {
         EItem item = new EItem();
         try {
             String filename = multipartFile.getOriginalFilename();
+            if (filename != null) {
+                filename = filename.substring(filename.lastIndexOf("\\")+1);
+            }
             String contentType = multipartFile.getContentType();
             File disFile = new File(mFileUpload + File.separator + filename);
             multipartFile.transferTo(disFile);
